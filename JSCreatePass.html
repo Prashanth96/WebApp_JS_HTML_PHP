@@ -1,0 +1,144 @@
+<!doctype html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Student Registration </title>
+    <style type="text/css">
+        body {
+            background: skyblue;
+            padding: 10px;
+        }
+
+        .wrapper {
+            max-width: 350px;
+            max-height: min-content;
+            width: 100%;
+            background: white;
+            margin: 30px auto;
+            padding: 30px;
+        }
+
+        .wrapper .title {
+            width: 100%;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        .wrapper .form {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .wrapper .form .input_field {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .wrapper .form .input_field label {
+            width: 200px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .wrapper .form .input_field .input,
+        .wrapper .form .input_field .textarea {
+            width: 100%;
+            font-size: 12px;
+            padding: 8px 10px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .wrapper .form .input_field .btn {
+            width: 100%;
+            padding: 8px 10px;
+            font-size: 18px;
+            border: 2;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .wrapper .form .input_field:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 420px) and (max-height:100vh) {
+            .wrapper .form .input_field {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .wrapper .form .input_field label {
+                margin-bottom: 5px;
+            }
+
+            .wrapper .form .input_field.terms {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title">
+            Set your password
+        </div>
+        <div class="form">
+            <div class="input_field">
+                <lable for="spass">Enter Your Password: </lable>
+                <input type="password" id="spass" name="spass" class="input">
+            </div>
+            <div class="input_field">
+                <lable for="srepass">Re-Enter Your Password: </lable>
+                <input type="password" id="srepass" name="srepass" class="input">
+            </div>
+            <div class="input_field">
+                <button type="button" value="Submit" class="btn" onclick="submit()">Submit</button>
+            </div>
+        </div>
+        
+    </div>
+    <div id="success"></div>
+    <script type="text/javascript">
+
+        function submit() {
+            //alert("hello");
+
+            var pass = document.getElementById("spass").value;
+            var repass = document.getElementById("srepass").value;
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.open('POST', "updatepass.php")
+            xhttp.setRequestHeader("content-type", "application/x-www-form-urlencoded")
+            xhttp.send("spass=" + pass + "&srepass=" + repass);
+
+            xhttp.onreadystatechange = function () {
+                alert(this.response)
+                if (this.response == "success") {
+                    // location.replace("JSLogin.html");
+                    document.getElementsByClassName("wrapper")[0].style.visibility='hidden';
+                    document.getElementById("success").innerHTML = " <center style='margin-bottom:60% '><u><h1> Successfully Registered </h1></u><br><button style='width:4em;height:2em'><a href='JSLogin.html' >Log In</a></button></center>"
+
+                } else if(this.response =="Please Enter Password") {
+                    alert("Enter Password");
+                    location.replace("JSCreatePass.html");
+
+                } else if(this.response =="Password mismatch"){
+                    alert("Password mismatch");
+                    location.replace("JSCreatePass.html");
+
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

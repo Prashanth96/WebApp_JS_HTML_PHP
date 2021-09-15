@@ -1,0 +1,85 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Registration Form </title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="title">
+            Registration Form
+        </div>
+        <div class="form" >
+           
+            <div class="input_field">
+                <label for="sname"> Student Name :</label>
+                <input type="text" id="sname" name="sname" class="input">
+            </div>
+            <div class="input_field">
+                <label for="sage"> Age :</label>
+                <input type="text" id="sage" name="sage" class="input">
+            </div>
+            <div class="input_field">
+                <label for="sclass"> Class :</label>
+                <input type="text" id="sclass" name="sclass" class="input">
+            </div>
+            <div class="input_field">
+                <label for="saddress"> Address :</label>
+                <textarea class="textarea" id="saddress" name="saddress"></textarea>
+            </div>
+            <div class="input_field">
+                <label for="sphoneno"> Phone No. :</label>
+                <input type="number" id="sphoneno" name="sphoneno" class="input">
+            </div>
+            <div class="input_field">
+                <label for="semail"> Email Id :</label>
+                <input type="text" id="semail" name="semail" class="input">
+            </div>
+            <div class="input_field">
+                <button type="button" value="Register" class="btn" onclick="submit()">Register</button>
+            </div>
+        
+        </div>
+    </div>
+    <script type="text/javascript">
+    
+    function submit(){
+        // alert("hello");
+       var name = document.getElementById("sname").value;
+       var age = document.getElementById("sage").value;
+       var sclass = document.getElementById("sclass").value;
+       var address = document.getElementById("saddress").value;
+       var phone = document.getElementById("sphoneno").value;
+       var email = document.getElementById("semail").value;
+        // alert(name);
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('GET' , "addstudent.php?sname="+name+"&sage="+age+"&sclass="+sclass+"&saddress="+address+"&sphoneno="+phone+"&semail="+email);
+        xhttp.send();
+        
+        xhttp.onreadystatechange = function(){
+            // alert(this.response)
+            if(this.response=="success") {
+                location.replace("JSCreatePass.html")
+
+            }
+        }
+    }
+
+
+
+    // submit = function () {
+
+    // }
+
+    // submit = () => {
+
+    // }
+
+    </script>
+</body>
+
+</html>
